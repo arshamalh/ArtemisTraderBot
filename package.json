@@ -1,0 +1,45 @@
+{
+  "name": "tradeassist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "node-binance-api": "^0.12.2",
+    "socket.io": "^3.0.3",
+    "technicalindicators": "^3.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/register": "^7.11.5",
+    "core-js": "^3.6.5",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "scripts": {
+    "start": "nodemon ./src/server/index.js --exec babel-node",
+    "start_ind": "nodemon ./src/server/businesslogic/entrypoint.js --exec babel-node",
+    "start_2": "nodemon ./src/server/index2.js --exec babel-node",
+    "start_orderAction": "nodemon ./src/server/businesslogic/lib/orderaction.js --exec babel-node",
+    "test_02": "nodemon ./fake/test_02.js --exec babel-node",
+    "test_03": "nodemon ./fake/test_03.js --exec babel-node",
+    "test_06": "nodemon ./fake/test_06.js --exec babel-node",
+    "test_07": "nodemon ./fake/test_07.js --exec babel-node",
+    "hasher": "nodemon ./fake/hasher.js --exec babel-node",
+    "build": "babel src -d dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mStart": "node ./dist/server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://194.5.192.53/tfs/DefaultCollection/TradeBot/_git/TradeAssistBackEnd"
+  },
+  "author": "",
+  "license": "ISC"
+}

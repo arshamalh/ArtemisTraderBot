@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "name": "MainWorker",
+      "script": "./dist/server/index.js",
+      "exec_mode": "cluster",
+      "instances": 1,
+      "node_args": "--max_old_space_size=4000"
+    }
+]
+}
