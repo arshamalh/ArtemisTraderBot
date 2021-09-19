@@ -1,0 +1,358 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="css/style.css"/>
+
+  <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <title>Trade Assist</title>
+</head>
+<body>
+<div class="main-container">
+  <nav class="top-header">
+    <div class="top-header-left-pane">
+      <a class="navbar-brand" style="color: white;" href="#">
+        <img
+            src="assets/bitcoin.svg"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt="BTC"
+            loading="lazy"
+            style="margin-right: 5px"
+        />
+        BTCUSDT
+      </a>
+    </div>
+    <span
+        class="nav-item nav-link active"
+        style="color: #fff"
+        id="nav-balance"
+    ></span>
+  </nav>
+  <div id="status" class="btn btn-primary">
+    <div id="price">Price: 18000$</div>
+    <div class="tfAndUtRate">
+    <div id="UtBotRate" data-toggle="modal" data-target="#UTBotSet">18295</div>
+    <div class="timeframe">
+      <div class="dropdown">
+        <div class="dropbtn">1m</div>
+        <div class="dropdown-content">
+          <p class="tfValue">1m</p> 
+          <p class="tfValue">3m</p>
+          <p class="tfValue">5m</p>
+          <p class="tfValue">15m</p>
+          <p class="tfValue">1h</p>
+          <p class="tfValue">4h</p>
+          <p class="tfValue">1d</p>
+          <p class="tfValue">3d</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="body-container">
+    <div id="table-orders">
+      <table class="table">
+        <thead class="thead-dark">
+        <tr>
+          <th>Buy/Sell</th>
+          <th>Profit</th>
+          <th>State</th>
+        </tr>
+        </thead>
+        <tbody id="openedOrders">
+        </tbody>
+        <tbody id="closedOrders">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="separator"></div>
+  <div id="btns-buysell">
+    <div class="bottomBtn" id="btnSell" data-toggle="modal"
+         data-target="#myModal">Sell
+    </div>
+    <div class="bottomBtn" id="btnBuy" data-toggle="modal"
+         data-target="#myModal">Buy
+    </div>
+  </div>
+</div>
+
+<!-- The Confirm Buy o Sell modal-->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Money Managment</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Balance --------->
+        <div id="balance">
+          <span class="BalanceHeadSpan"> Amount (50000$)</span>
+          <div class="d-flex justify-content-center my-4">
+            <div class="w-75">
+              <input
+                  type="range"
+                  class="custom-range"
+                  id="BalanceRange"
+                  min="0"
+                  max="200"
+                  step="0.1"
+                  value="0"
+              />
+            </div>
+            <span
+                id="BalanceValueSpan"
+                class="font-weight-bold text-primary ml-2"
+                style="min-width: 41.5px;"
+            >0%</span>
+          </div>
+        </div>
+        <!---------- Balance -->
+        <!-- Leverage --------->
+        <div id="Leverage">
+          <span class="LeverageHeadSpan"> Leverage (1-125x)</span>
+          <div class="d-flex justify-content-center my-4">
+            <div class="w-75">
+              <input
+                  type="range"
+                  class="custom-range"
+                  id="LeverageRange"
+                  min="1"
+                  max="125"
+                  value="10"
+              />
+            </div>
+            <span
+                id="LeverageValueSpan"
+                class="font-weight-bold text-primary ml-2"
+                style="min-width: 18.5px;"
+            >10</span>
+          </div>
+        </div>
+        <!--------- Leverage -->
+        <!-- Risk --------->
+        <div id="Risk">
+          <span class="RiskHeadSpan"> Risk (0-100%) </span>
+          <div class="d-flex justify-content-center my-4">
+            <div class="w-75">
+              <input
+                  type="range"
+                  class="custom-range"
+                  id="RiskRange"
+                  min="0"
+                  max="100"
+                  value="0"
+              />
+            </div>
+            <span
+                id="RiskValueSpan"
+                class="font-weight-bold text-primary ml-2"
+                style="min-width: 41.5px;"
+            >0%</span>
+          </div>
+        </div>
+        <!--------- Risk -->
+        <div class="margin-type-wrapper">
+          <div class="margin-type w75">
+            <div id="isolated-margin-type" class="bottomBtn margin-type-btn">
+              ISOLATED
+            </div>
+            <div id="crossed-margin-type" class="bottomBtn margin-type-btn active">
+              CROSSED
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            Cancel
+          </button>
+          <button 
+            type="button" 
+            class="btn btn-success" 
+            id="confirm"
+            style="min-width: 165px;"
+          >Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END of The Confirm Buy o Sell modal-->
+
+<!-- Order Details Modal -->
+<div class="modal" id="OrderDetailsModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Order Details</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-btns">
+          <div class="ODbtn" id="closeOrderBTN">
+            Close Order
+          </div>
+          <div class="ODbtn" id="showSggBTN" data-toggle="modal" data-target="#TSggModal">
+            Show Suggestions
+          </div>
+          <div class="ODbtn" id="setStopBTN" data-toggle="modal" data-target="#SetStopTarget">
+            Set Stop Target
+          </div>
+          <div class="ODbtn" id="setStopLossBTN" data-toggle="modal" data-target="#SetStopLossTarget">
+            Set Stop Loss
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END of Order Details Modal -->
+
+
+<!-- UTBOT Settings Modal -->
+<div class="modal" id="UTBotSet">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">UTBot Settings</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="sensitivity">
+          <span class="sensitivitySpan">Sensitivity</span>
+          <div class="d-flex justify-content-center my-4">
+            <div class="w-75">
+              <input
+                  type="range"
+                  class="custom-range"
+                  id="sensitivityRange"
+                  min="0"
+                  max="10"
+                  step="0.1"
+                  value="1"
+              />
+            </div>
+            <span
+                id="sensitivityVal"
+                class="font-weight-bold text-primary ml-2"
+            >1</span>
+          </div>
+        </div>
+        <div id="atrLen">
+          <span class="atrLenSpan">ATR Length</span>
+          <div class="d-flex justify-content-center my-4">
+            <div class="w-75">
+              <input
+                  type="range"
+                  class="custom-range"
+                  id="atrLenRange"
+                  min="1"
+                  max="200"
+                  value="14"
+              />
+            </div>
+            <span
+                id="atrLenVal"
+                class="font-weight-bold text-primary ml-2"
+            >14</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-success" id="applyUTBsettings">Apply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- UTBOT Settings Modal -->
+
+
+<!-- Target Suggestions Modal -->
+<div class="modal" id="TSggModal">
+  <div class="modal-dialog">
+    <div class="modal-content" style="min-height: 500px;">
+      <div class="modal-header">
+        <h4 class="modal-title">Target Suggestions</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-btns">
+          <div id="TSuggestions">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-success" id="ApplyTarget">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Target Suggestions Modal -->
+
+<!-- Set Stop Target Modal -->
+<div class="modal" id="SetStopTarget">
+  <div class="modal-dialog">
+    <div class="modal-content" style="min-height: 500px;">
+      <div class="modal-header">
+        <h4 class="modal-title">Set Stop Target (Trailing Stop)</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-btns">
+          <div id="StopTargets">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="AddStopTarget">Add + </button>
+        <button type="button" class="btn btn-success" id="ConfirmStopTarget">Confirm</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Set Stop Target Modal -->
+
+<!-- Loading Spinner -->
+<div class="Loading">
+  <img src="assets/loading.gif" alt="waiting to confirm the request" width="120px" height="120px" />
+  <span class="loading-text">Please wait to confirm your request</span>
+</div>
+<!-- Loading Spinner -->
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
