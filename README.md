@@ -1,0 +1,2 @@
+# ArtemisATrader
+Autotrader bot
