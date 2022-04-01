@@ -1,2 +1,2 @@
-# Artemis Auto Trader bot
-Autotrader bot
+# Artemis Auto Trader
+This is autotrader bot
